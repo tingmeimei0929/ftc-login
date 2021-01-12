@@ -1,0 +1,71 @@
+@charset "utf-8";
+$browser-default-font-size: 16px !default;
+@function pxToRem($px) {
+    @return $px / $browser-default-font-size * 1rem;
+}
+@mixin bp-pc{
+    @media only screen and (min-width: 1221px)
+    {
+        @content;
+    }
+}
+@mixin bp-large{
+    @media only screen and (max-width: 1220px) and (min-width: 992px)
+    {
+        @content;
+    }
+}
+@mixin bp-middle{
+    @media only screen and  (max-width: 991px) and (min-width: 768px)
+    {
+        @content;
+    }
+}
+@mixin bp-small{
+    @media only screen and (max-width: 767px)
+    {
+        @content;
+    }
+}
+@mixin bp-xs{
+    @media only screen and (max-width: 300px)
+    {
+        @content;
+    }
+}
+
+
+%visuallyhidden {
+    margin: -1px;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip: rect(0, 0, 0, 0);
+    position: absolute;
+}
+@mixin clearfix{
+    &:after{
+        visibility: hidden;
+        display: block;
+        content: " ";
+        clear: both;
+    }
+}
+
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    $opacity-ie: $opacity * 100;
+    filter: alpha(opacity=$opacity-ie);
+}
+
+@mixin positionAb($x , $y){ 
+    position: absolute; 
+    left:50%; 
+    top:50%; 
+    width: $x;
+    height: $y; 
+    margin-left:-$x/2; 
+    margin-top:-$y/2; z-index:99; 
+}

@@ -1,0 +1,63 @@
+@import './mixin.scss';
+@import './palette.scss';
+.footer{
+    background-color: $color-block;
+    color: $color-white;
+    border-top: 5px solid $color-border;
+    padding: 15px 30px;
+    width: 100%;
+
+    .list{
+        display: block;
+        padding: 10px 30px;
+        a{
+            display: block;
+            padding: 0 20px 15px 0;
+            float: left;
+            color: $color-white;
+        }
+    }
+    .present{
+        display: block;
+        padding-left: 30px;
+        font-size: pxToRem(14px);
+
+        p{
+            float: left;
+            padding: 0 30px 10px 0;
+            
+            span{
+                padding-left: 10px;
+            }
+        }
+    }
+
+    @include bp-middle{
+        a{
+            display: block;
+            padding: 0 20px 15px 0;
+            width: 50%;
+            float: left;
+            color: $color-white;
+        }
+    }
+
+    @include bp-small {
+        a{
+            display: block;
+            padding: 0 30px 15px 0;
+            width: 50%;
+            float: left;
+            color: $color-white;
+        }
+    }
+    @include bp-xs {
+        a{
+            display: block;
+            padding: 0 10px 15px 0 !important;
+            float: left;
+            color: $color-white;
+        }
+    }
+}
+

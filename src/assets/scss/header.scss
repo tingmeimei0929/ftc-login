@@ -1,0 +1,35 @@
+@import './mixin.scss';
+@import './palette.scss';
+.header{
+    color: $color-block;
+    padding: 5px 50px;
+    width: 100%;
+    border-bottom: 8px solid $color-header-border;
+    position: relative;
+    font-size: pxToRem(20px) !important;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    
+    .logo{
+        a{
+            background-color:transparent;
+            img{
+                width: 190px;
+                height: 40px;
+            }
+        }
+        span{
+            margin-left: 10px;
+        }
+    }
+    .fastEntrance{
+        margin-top: 20px;
+        a{
+            color: $color-block !important;
+        }
+        .step{
+            margin: 0 10px;
+        }
+    }
+}

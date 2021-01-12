@@ -1,0 +1,56 @@
+@import './palette.scss';
+@import './mixin.scss';
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,
+body {
+    font-family: "Helvetica Neue", "Lucida Grande", Verdana, "PingFang SC",
+    "PingFang TC", "Hiragino Sans GB", "Heiti SC", "Heiti TC",
+    "WenQuanYi Micro Hei", "Microsoft YaHei", "Microsoft JhengHei", STHeiti,
+    sans-serif;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+    font-size: $browser-default-font-size;
+    background: $color-paper 0 0;
+    line-height: initial !important;
+    position: relative;
+}
+
+.container{
+    position: relative;
+    min-width: 240px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+ul,
+ol,
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button,
+input,
+select {
+    outline: none;
+}
+
+input {
+    border: none;
+}
+.icon, .iconfont{
+    font-family:"iconfont" !important;
+    font-size: 1em;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
