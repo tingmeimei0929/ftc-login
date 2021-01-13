@@ -1,25 +1,32 @@
 <template>
     <div class="content">
         <el-form class="login-type" :rules="rules" :model="ruleForm" ref="ruleForm">
-            <el-form-item  class="smsPush" prop="tel" >
+            <el-form-item  class="smsItem" prop="tel" >
                 <el-input type="text"
-                    placeholder="手机号码"
+                    placeholder="请输入您的手机号码"
                     name="tel"
-                    id="tel" v-model="ruleForm.tel">
+                    class="tel" v-model="ruleForm.tel">
                 </el-input>
             </el-form-item>
-            <el-form-item class="smsPush last"  prop="smscode">
+            <el-form-item class="smsItem last"  prop="smsCode">
                 <el-input type="text"
                     placeholder="短信验证码"
-                    name="smscode"
-                    class="smsInput "
-                    id="smscode" v-model="ruleForm.smscode">
+                    name="smsCode"
+                    class="smsCode" v-model="ruleForm.smsCode">
                 </el-input>
                 <div class="smsBtn" >
                     <a @click="countDown" :class="{disabled: !this.canClick}" >{{ content }}</a>
                 </div>
             </el-form-item>
+            <el-form-item class="smsItem remember">
+                <el-checkbox v-model="checked" class="sidentify">记住我</el-checkbox>
+                <div class="manner">
+                    <router-link to="">忘记密码</router-link>
+                    <router-link to="">立即注册</router-link>
+                </div>
+            </el-form-item>
             <el-button class="button" @click="submitForm('ruleForm')">立即登录</el-button>
+            <el-button class="button wxBtn"><a href="https://www.ftacademy.cn/wxlogin">微信登录</a></el-button>
         </el-form>
     </div>
 </template>
@@ -38,7 +45,7 @@ export default {
             }
         }
         //  <!--验证码是否为空-->
-        const checkSmscode = (rule, value, callback) => {
+        const checkSmsCode = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入短信验证码'))
             } else {
@@ -48,16 +55,16 @@ export default {
         return {
             ruleForm: {
                 tel: '',
-                smscode: ''
+                smsCode: ''
             },
             rules: {
                 tel: [
                     { required: true, message: '请输入手机号', trigger: 'blur' },
                     { validator: checkTel, trigger: 'blur' }
                 ],
-                smscode: [
+                smsCode: [
                     { required: true, message: '请输入短信验证码', trigger: 'blur' },
-                    { validator: checkSmscode, trigger: 'blur' }
+                    { validator: checkSmsCode, trigger: 'blur' }
                 ]
             },
             content: '获取验证码',

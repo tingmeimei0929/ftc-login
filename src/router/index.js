@@ -11,7 +11,11 @@ const routes = [
     component: Login,
     children: [
         {
-            path: '/Email',
+            path: '/',
+            redirect: 'Phone'
+        },
+        {
+            path: 'Email',
             name: 'Email',
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
@@ -19,7 +23,7 @@ const routes = [
             component: () => import(/* webpackChunkName: "about" */ '../views/Email.vue')
         },
         {
-            path: '/Phone',
+            path: 'Phone',
             name: 'Phone',
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route

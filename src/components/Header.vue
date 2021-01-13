@@ -7,8 +7,6 @@
             <span>登录</span>
         </div>
         <div class="fastEntrance">
-            <a href="">注册</a>
-            <span class="step">|</span>
             <a href="http://www.ftchinese.com/">首页</a>
         </div>
    </div>

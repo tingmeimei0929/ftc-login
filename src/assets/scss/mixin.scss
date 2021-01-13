@@ -22,13 +22,13 @@ $browser-default-font-size: 16px !default;
     }
 }
 @mixin bp-small{
-    @media only screen and (max-width: 767px)
+    @media only screen and (max-width: 767px) and (min-width: 321px)
     {
         @content;
     }
 }
 @mixin bp-xs{
-    @media only screen and (max-width: 300px)
+    @media only screen and (max-width: 320px)
     {
         @content;
     }
