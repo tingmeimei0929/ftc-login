@@ -1,11 +1,11 @@
 <template>
     <div class="content">
         <el-form class="login-type" :rules="rules" :model="ruleForm" ref="ruleForm">
-            <el-form-item  class="smsItem" prop="tel" >
+            <el-form-item  class="smsItem" prop="phone" >
                 <el-input type="text"
                     placeholder="请输入您的手机号码"
-                    name="tel"
-                    class="tel" v-model="ruleForm.tel">
+                    name="phone"
+                    class="phone" v-model="ruleForm.phone">
                 </el-input>
             </el-form-item>
             <el-form-item class="smsItem last"  prop="smsCode">
@@ -35,36 +35,30 @@ export default {
     name: "Phone",
     data() {
           // <!--验证手机号是否合法-->
-        const checkTel = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('请输入手机号'))
-            } else if (!this.checkMobile(value)) {
-                callback(new Error('手机号格式不正确'))
+        const checkMobile = (rule, value, callback) => {
+            const phoneReg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
+            if (!Number.isInteger(+value)) {
+                callback(new Error('请输入数字值'))
             } else {
-                callback()
-            }
-        }
-        //  <!--验证码是否为空-->
-        const checkSmsCode = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('请输入短信验证码'))
-            } else {
-                callback()
+                if (phoneReg.test(value)) {
+                    callback()
+                } else {
+                    callback(new Error("请输入正确的电话号码"))
+                }
             }
         }
         return {
             ruleForm: {
-                tel: '',
+                phone: '',
                 smsCode: ''
             },
             rules: {
-                tel: [
-                    { required: true, message: '请输入手机号', trigger: 'blur' },
-                    { validator: checkTel, trigger: 'blur' }
+                phone: [
+                    { required: true, message: "请输入手机号码", trigger: 'blur' },
+                    { validator: checkMobile, trigger: 'blur'}
                 ],
                 smsCode: [
-                    { required: true, message: '请输入短信验证码', trigger: 'blur' },
-                    { validator: checkSmsCode, trigger: 'blur' }
+                    { required: true, message: "请输入验证码", trigger: 'blur' }
                 ]
             },
             content: '获取验证码',
@@ -74,16 +68,6 @@ export default {
         }
     },
     methods: {
-        usercode () {
-            this.$router.push({
-                path: '/Login/Account'
-            })
-        },
-        code () {
-            this.$router.push({
-                path: '/CodeRules'
-            })
-        },
         countDown () {
             if (!this.canclick) {
                 return
@@ -101,28 +85,19 @@ export default {
                 }
             }, 1000)
         },
-        // 验证手机号
-        checkMobile (str) {
-            const reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
-            if (reg.test(str)) {
-                return true
-            } else {
-                return false
-            }
-        },
         // <!--提交登录-->
         submitForm (formName) {
             this.$refs[formName].validate(valid => {
                 if (valid) {
-                setTimeout(() => {
-                    this.$message({
-                    message: '登录成功！',
-                    type: 'success'
-                    })
-                }, 400)
+                    setTimeout(() => {
+                        this.$message({
+                        message: '登录成功！',
+                        type: 'success'
+                        })
+                    }, 400)
                 } else {
-                console.log('error submit!!')
-                return false
+                    console.log('error submit!!')
+                    return false
                 }
             })
         }

@@ -19,7 +19,8 @@ import './assets/scss/common.scss'
 import './assets/scss/footer.scss'
 import './assets/scss/mixin.scss'
 import './assets/scss/palette.scss'
-
+import './assets/scss/registered.scss'
+import './assets/scss/forgetPsd.scss'
 new Vue({
   router,
   store,

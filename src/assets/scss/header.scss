@@ -2,7 +2,7 @@
 @import './palette.scss';
 .header{
     color: $color-block;
-    padding: 5px 50px;
+    padding: 5px 100px;
     width: 100%;
     border-bottom: 8px solid $color-header-border;
     position: relative;
@@ -35,8 +35,11 @@
         a{
             color: $color-block !important;
         }
-        .step{
-            margin: 0 10px;
+        span::after {
+            content: '|';
+            color: $color-block;
+            margin: 0 20px;
+            font-size: pxToRem(20px);
         }
     }
 }

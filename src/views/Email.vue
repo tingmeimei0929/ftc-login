@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <el-form class="login-type" :rules="rules" :model="ruleForm" ref="ruleForm"  label-width="80px">
+        <el-form class="login-type" :rules="rules" :model="ruleForm" ref="ruleForm"  label-width="100px">
             <el-form-item  class="emailItem" prop="email" label="登录邮箱">
                 <el-input type="text"
                     placeholder="请输入您的邮箱"
@@ -21,15 +21,16 @@
                     name="verification"
                     class="verification" v-model="ruleForm.verification">
                 </el-input>
-                <div @click="refreshCode" class="identifyCode">
-                    <s-identify :identifyCode="identifyCode"></s-identify>
+                <div class="identifyCode">
+                    <img :src="imgCode">
+                    <i class="el-icon-refresh" @click="refreshCode"></i>
                 </div>
             </el-form-item>
             <el-form-item class="emailItem remember">
-                <el-checkbox v-model="checked" class="sidentify">记住我</el-checkbox>
+                <el-checkbox v-model="ruleForm.checked" class="sidentify">记住我</el-checkbox>
                 <div class="manner">
-                    <router-link to="">忘记密码</router-link>
-                    <router-link to="">立即注册</router-link>
+                    <a @click="forgetPsd">忘记密码</a>
+                    <a @click="registered">立即注册</a>
                 </div>
             </el-form-item>
             <el-button class="button" @click="submitForm('ruleForm')">立即登录</el-button>
@@ -38,50 +39,70 @@
     </div>
 </template>
 <script>
-import SIdentify from '../components/Sldentify'
+import aixos from 'axios'
 export default {
     name: "Email",
     data() {
+        // 自定义验证邮箱
+        const checkEmail = (rule, value, callback) => {
+            const emailReg = /^[0-9A-Za-z_][_.0-9A-Za-z-]{0,31}@([0-9a-z][0-9a-z-]{0,30}\.){1,4}[a-z]{2,4}$/
+            if (emailReg.test(value)) {
+                console.log(emailReg.test(value))
+                callback()
+            } else {
+                callback(new Error("请输入正确的邮箱"))
+            }
+        }
+        // 自定义验证密码
+        // const checkPassword = (rule, value, callback) => {
+        //     const passwordReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/
+        //     if (passwordReg.test(value)) {
+        //         callback()
+        //     } else {
+        //         callback(new Error("6～20位英文字母和数字"))
+        //     }
+        // }
         return {
             ruleForm: {
                 email: '',
                 password: '',
-                verification: ''
+                verification: '',
+                imgCode: '',
+                ckecked: ''
             },
-            rules: [
+            rules: {
+                email: [
+                    { required: true, message: '请输入邮箱', trigger: 'blur' },
+                    { validator: checkEmail, trigger: 'blur' }
+                ],
+                password: [
+                    { required: true, message: '请输入密码', trigger: 'blur' },
+                    { min: 6, maxi: 18, message: '6～20位英文字母和数字', trigger: 'blur' }
+                ]
 
-            ],
-            identifyCodes: '1234567890abcdefggijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTVUWXYZ',
-            identifyCode: ''
+            }
         };
     },
-    components: {
-        SIdentify
-    },
-    mounted () {
-        //   验证码初始化
-        this.identifyCode = ''
-        this.makeCode(this.identifyCodes, 3)
+    created () {
+        this.refreshCode()
     },
     methods: {
-         // 生成随机数
-        randomNum (min, max) {
-            return Math.floor(Math.random() * (max - min) + min)
+        refreshCode: function () {
+            axios.post("api/captchacode").then(res => {
+                this.imgCode = res.data;
+                console.log(imgCode)
+            })
         },
-        // 切换验证码
-        refreshCode () {
-            this.identifyCode = ''
-            this.makeCode(this.identifyCodes, 3)
+        forgetPsd() {
+            this.$router.push({
+                path: 'ForgetPsd'
+            })
         },
-        // 生成四位随机验证码
-        makeCode (o, l) {
-            for (let i = 0; i < l; i++) {
-                this.identifyCode += this.identifyCodes[
-                this.randomNum(0, this.identifyCodes.length)
-                ]
-            }
-            console.log(this.identifyCode)
-        },
+        registered() {
+            this.$router.push({
+                path: 'Registered'
+            })
+        }
     }
 };
 </script>

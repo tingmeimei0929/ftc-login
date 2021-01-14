@@ -1,0 +1,110 @@
+@import './mixin.scss';
+@import './palette.scss';
+@import './common.scss';
+
+.main {
+    width: 100%;
+    height: 100vh;
+
+    .container {
+        &.registered {
+            margin: 20px 100px;
+            text-align: center;
+            background-color: $color-white;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+            min-height: 700px;
+            .registered-type{
+                width: 80%;
+                margin: 50px auto 20px auto;
+
+                .el-form-item__label {
+                    font-size: pxToRem(16px) !important;
+                }
+                .el-checkbox__label{
+                    font-size: pxToRem(16px) !important;
+                }
+                .el-form-item__content{
+                    text-align: start;
+                }
+                .el-checkbox, .el-checkbox__input{
+                    white-space: initial !important;
+                }
+                .emailItem {
+                    width: 80%;
+                    margin-bottom: 30px;
+                    margin-left: auto;
+                    margin-right: auto;
+
+                    .el-input__inner {
+                        border: none !important;
+                    }
+
+                    .el-input {
+                        border: 1px solid $color-input-border !important;
+                        border-radius: 5px;
+                        padding: 3px 5px;
+                    }
+                    p{
+                        font-size: pxToRem(18px) !important;
+                        a{
+                            color: $color-a !important;
+                        }
+                    }
+                    .button {
+                        cursor: pointer;
+                        width: 80%;
+                        margin-bottom: 20px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        border: 1px solid $color-button-bgColor;
+                        border-radius: 5px;
+                        background-color: $color-button-bgColor;
+                        color: $color-white;
+                        font-size: pxToRem(20px);
+                    }
+                }
+            }
+            }
+            .service{
+                width: 100%;
+                font-size: pxToRem(18px) !important;
+                color: $color-h2;
+                text-align: left;
+                padding: 50px 10px;
+            }
+        }
+        @include bp-small{
+            &.registered{
+                margin: 20px 10px !important;
+                display: flex;
+                display: -webkit-flex;
+                justify-content: initial !important;
+                flex-direction: column !important;
+
+                .left{
+                    width: 100% !important;
+                }
+                .right{
+                    width: 100% !important;
+                }
+            }
+        }
+        @include bp-xs{
+            &.registered{
+                margin: 20px 5px !important;
+                display: flex;
+                display: -webkit-flex;
+                justify-content: initial !important;
+                flex-direction: column !important;
+
+                .left{
+                    width: 100% !important;
+                }
+                .right{
+                    width: 100% !important;
+                }
+            }
+        }
+    }
