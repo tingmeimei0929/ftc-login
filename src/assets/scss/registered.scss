@@ -13,48 +13,63 @@
             background-color: $color-white;
             display: flex;
             display: -webkit-flex;
-            flex-direction: column;
+            justify-content: space-between;
             min-height: 700px;
-            .registered-type{
-                width: 80%;
-                margin: 50px auto 20px auto;
+            .left{
+                width: 70%;
+                .registered-type{
+                    width: 100%;
+                    margin: 50px auto 20px auto;
 
-                .el-form-item__label {
-                    font-size: pxToRem(16px) !important;
-                }
-                .el-checkbox__label{
-                    font-size: pxToRem(16px) !important;
-                }
-                .el-form-item__content{
-                    text-align: start;
-                }
-                .el-checkbox, .el-checkbox__input{
-                    white-space: initial !important;
-                }
-                .emailItem {
-                    width: 80%;
-                    margin-bottom: 30px;
-                    margin-left: auto;
-                    margin-right: auto;
-
-                    .el-input__inner {
-                        border: none !important;
+                    .el-form-item__label {
+                        font-size: pxToRem(16px) !important;
                     }
+                    .el-form-item__label::before{
+                        content: '' !important;
+                    }
+                    .el-checkbox__label{
+                        font-size: pxToRem(16px) !important;
+                        display: initial !important;
+                    }
+                    .el-form-item__content{
+                        text-align: start;
+                    }
+                    .el-checkbox, .el-checkbox__input{
+                        white-space: initial !important;
+                    }
+                    .el-checkbox__inner{
+                        border-color:  $color-input-border !important;
+                    }
+                    .emailItem {
+                        width: 80%;
+                        margin-bottom: 30px;
+                        margin-left: auto;
+                        margin-right: auto;
 
-                    .el-input {
-                        border: 1px solid $color-input-border !important;
-                        border-radius: 5px;
-                        padding: 3px 5px;
+                        .el-input__inner {
+                            border: none !important;
+                        }
+
+                        .el-input {
+                            border: 1px solid $color-input-border !important;
+                            border-radius: 5px;
+                            padding: 3px 5px;
+                        }
                     }
                     p{
                         font-size: pxToRem(18px) !important;
+                        margin-bottom: 30px;
+                        width: 60%;
+                        margin-left: auto;
+                        margin-right: auto;
+
                         a{
                             color: $color-a !important;
                         }
                     }
                     .button {
                         cursor: pointer;
-                        width: 80%;
+                        width: 60%;
                         margin-bottom: 20px;
                         margin-left: auto;
                         margin-right: auto;
@@ -66,13 +81,66 @@
                     }
                 }
             }
+            .right{
+                width: 30%;
+                .sectionTitle{
+                    width: 100%;
+                    position: relative;
+                    margin: 50px auto;
+                    border-top: 10px solid #E9DECF;
+
+                    .detail{
+                        padding: 30px 20px 0 20px;
+                        font-size: pxToRem(18px) !important;
+                        line-height: 1.8;
+                        color: $color-content;
+
+                        a{
+                            color: #2e6e9e;
+                            font-size: pxToRem(16px) !important;
+                        }
+                    }
+                }
+                .sectionTitle::before{
+                    content:attr(title);
+                    position: absolute;
+                    left: 50%;
+                    top: -5px;
+                    font-size: pxToRem(20px) !important;
+                    transform: translateX(-50%);
+                    -webkit-transform:translate(-50%,-50%);
+                    padding:0 10px;
+                    background-color:$color-white;
+                }
             }
-            .service{
-                width: 100%;
-                font-size: pxToRem(18px) !important;
-                color: $color-h2;
-                text-align: left;
-                padding: 50px 10px;
+        }
+        @include bp-large{
+            &.registered {
+                margin: 40px 50px !important;
+                .right{
+                    width: 30%;
+                    .sectionTitle{
+                        .detail{
+                            padding: 30px 5px 0 5px !important;
+                        }
+                    }
+                }
+            }
+        }
+        @include bp-middle{
+            &.registered {
+                margin: 20px 30px !important;
+                display: flex;
+                display: -webkit-flex;
+                justify-content: initial !important;
+                flex-direction: column !important;
+
+                .left{
+                    width: 100% !important;
+                }
+                .right{
+                    width: 100% !important;
+                }
             }
         }
         @include bp-small{
@@ -85,6 +153,28 @@
 
                 .left{
                     width: 100% !important;
+                    .registered-type{
+                        width: 100%;
+                        margin: 50px auto 20px auto;
+
+                        .emailItem {
+                            width: 95% !important; 
+                            margin-bottom: 30px;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+                        p{
+                            width: 80% !important;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+                        .button {
+                            width: 80% !important;
+                            margin-bottom: 20px;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+                    }
                 }
                 .right{
                     width: 100% !important;
@@ -101,6 +191,37 @@
 
                 .left{
                     width: 100% !important;
+                    .registered-type{
+                        width: 100%;
+                        margin: 50px auto 20px auto;
+                        .el-checkbox{
+                            margin-right: initial !important;
+                        }
+                        .el-form-item__label{
+                            text-align: left !important;
+                            width: 80px !important;
+                        }
+                        .el-form-item__content{
+                            margin-left: 80px !important;
+                        }
+                        .emailItem {
+                            width: 95% !important; 
+                            margin-bottom: 30px;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+                        p{
+                            width: 80% !important;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+                        .button {
+                            width: 80% !important;
+                            margin-bottom: 20px;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+                    }
                 }
                 .right{
                     width: 100% !important;
@@ -108,3 +229,4 @@
             }
         }
     }
+}

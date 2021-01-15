@@ -21,8 +21,8 @@
             <el-form-item class="smsItem remember">
                 <el-checkbox v-model="checked" class="sidentify">记住我</el-checkbox>
                 <div class="manner">
-                    <router-link to="">忘记密码</router-link>
-                    <router-link to="">立即注册</router-link>
+                    <router-link to="/ForgetPsd">忘记密码</router-link>
+                    <router-link to="/Registered">立即注册</router-link>
                 </div>
             </el-form-item>
             <el-button class="button" @click="submitForm('ruleForm')">立即登录</el-button>

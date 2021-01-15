@@ -2,7 +2,7 @@
 @import './palette.scss';
 .header{
     color: $color-block;
-    padding: 5px 100px;
+    padding: 10px 100px;
     width: 100%;
     border-bottom: 8px solid $color-header-border;
     position: relative;
@@ -43,21 +43,24 @@
         }
     }
 }
+@include bp-large{
+    .header {
+        padding: 10px 50px !important;
+    }
+}
+@include bp-middle{
+    &.header {
+        padding: 10px 30px !important;
+    }
+}
 @include bp-small{
     .header{
         color: $color-block;
-        padding: 5px 10px;
+        padding: 5px 10px !important;
         .logo{
             margin-top: 20px;
             a{
-                background-color:transparent;
-                display: inline-block;
-                width: 100px !important;
-                height: 20px !important;
-                img{
-                    max-width: 100%;
-                    max-height: 100%;
-                }
+                display: none !important;
             }
         }
     }
@@ -65,18 +68,23 @@
 @include bp-xs{
     .header{
         color: $color-block;
-        padding: 5px 10px;
+        padding: 5px 10px !important;
         .logo{
             margin-top: 20px;
             a{
-                background-color:transparent;
-                display: inline-block;
-                width: 100px !important;
-                height: 20px !important;
-                img{
-                    max-width: 100%;
-                    max-height: 100%;
-                }
+                display: none;
+            }
+        }
+        .fastEntrance{
+            margin-top: 20px;
+            a{
+                color: $color-block !important;
+            }
+            span::after {
+                content: '|';
+                color: $color-block;
+                margin: 0 10px;
+                font-size: pxToRem(20px);
             }
         }
     }

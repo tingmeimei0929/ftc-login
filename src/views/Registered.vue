@@ -2,56 +2,58 @@
     <div class="main">
         <navHeader></navHeader>
             <div class="container registered">
-                <el-form class="registered-type" :rules="rules" :model="ruleForm" ref="ruleForm"  label-width="100px">
-                    <el-form-item  class="emailItem" prop="email" label="电子邮箱">
-                        <el-input type="text"
-                            placeholder="请输入您的邮箱"
-                            name="email"
-                            class="email" v-model="ruleForm.email">
-                        </el-input>
-                        <small>用于找回您遗忘的密码，请正确填写</small>
-                    </el-form-item>
-                    <el-form-item class="emailItem"  prop="password" label="登录密码">
-                        <el-input type="text"
-                            placeholder="请输入您的密码"
-                            name="password"
-                            class="password" v-model="ruleForm.password">
-                        </el-input>
-                        <small>6-20位英文字母和数字</small>
-                    </el-form-item>
-                    <el-form-item  class="emailItem" prop="phone" label="电话号码">
-                        <el-input type="text"
-                            placeholder="请输入您的手机号码"
-                            name="phone"
-                            class="phone" v-model="ruleForm.phone">
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item  class="emailItem" label="电邮订阅：" prop="type">
-                        <el-checkbox-group v-model="ruleForm.emailType">
-                            <el-checkbox label="《今日焦点》邮件" name="type"></el-checkbox>
-                            <el-checkbox label="《一周精选》邮件" name="type"></el-checkbox>
-                            <el-checkbox label="《午后速递》邮件" name="type"></el-checkbox>
-                        </el-checkbox-group>
-                    </el-form-item>
-                    <el-form-item class="emailItem" label="隐私设置：" prop="type">
-                        <el-checkbox-group v-model="ruleForm.privacyType">
-                            <el-checkbox label="我愿意接受FT中文网新服务和产品的通知" name="type"></el-checkbox>
-                            <el-checkbox label="FT中文网及其慎重选择的第三方公司可以向我发送电子邮件" name="type"></el-checkbox>
-                            <el-checkbox label="FT中文网及其慎重选择的第三方公司可以向我寄送信件" name="type"></el-checkbox>
-                        </el-checkbox-group>
-                    </el-form-item>
-                    <el-form-item class="emailItem">
+                <div class="left">
+                    <el-form class="registered-type" :rules="rules" :model="ruleForm" ref="ruleForm"  label-width="100px">
+                        <el-form-item  class="emailItem" prop="email" label="电子邮箱">
+                            <el-input type="text"
+                                placeholder="请输入您的邮箱"
+                                name="email"
+                                class="email" v-model="ruleForm.email">
+                            </el-input>
+                            <small>用于找回您遗忘的密码，请正确填写</small>
+                        </el-form-item>
+                        <el-form-item class="emailItem"  prop="password" label="登录密码">
+                            <el-input type="text"
+                                placeholder="请输入您的密码"
+                                name="password"
+                                class="password" v-model="ruleForm.password">
+                            </el-input>
+                            <small>6-20位英文字母和数字</small>
+                        </el-form-item>
+                        <el-form-item  class="emailItem" prop="phone" label="电话号码">
+                            <el-input type="text"
+                                placeholder="请输入您的手机号码"
+                                name="phone"
+                                class="phone" v-model="ruleForm.phone">
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item  class="emailItem" label="电邮订阅" prop="type">
+                            <el-checkbox-group v-model="ruleForm.emailType">
+                                <el-checkbox label="《今日焦点》邮件" name="type"></el-checkbox>
+                                <el-checkbox label="《一周精选》邮件" name="type"></el-checkbox>
+                                <el-checkbox label="《午后速递》邮件" name="type"></el-checkbox>
+                            </el-checkbox-group>
+                        </el-form-item>
+                        <el-form-item class="emailItem" label="隐私设置" prop="type">
+                            <el-checkbox-group v-model="ruleForm.privacyType">
+                                <el-checkbox label="我愿意接受FT中文网新服务和产品的通知" name="type"></el-checkbox>
+                                <el-checkbox label="FT中文网及其慎重选择的第三方公司可以向我发送电子邮件" name="type"></el-checkbox>
+                                <el-checkbox label="FT中文网及其慎重选择的第三方公司可以向我寄送信件" name="type"></el-checkbox>
+                            </el-checkbox-group>
+                        </el-form-item>
                         <p>请您阅读我们的<a href="http://www.ftchinese.com/m/corp/service.html">用户注册协议</a>和<a href="http://www.ftchinese.com/m/corp/service.html#privacy">隐私权保护政策</a>，点击下方按钮即视为您接受。</p>
-                    </el-form-item>
-                    <el-form-item class="emailItem">
                         <el-button class="button" @click="submitForm('ruleForm')">同意并注册</el-button>
-                    </el-form-item>
-                </el-form>
-                <div class="service">
-                    <h2 class="caption">联系方式</h2>
-                    <p class="detail">如您在注册时遇到任何问题或有任何建议, 请写邮件至:<br><a href="mailto:customer.service@ftchinese.com?subject=Help on Registration Form">customer.service@ftchinese.com</a>客服信箱，我们的工作人员将尽快为您解决。</p>
-                    <h2 class="caption">关于FT中文网 (FTChinese.com) </h2>
-                    <p class="detail">FT中文网(http://www.FTChinese.com) 是英国《金融时报》集团旗下唯一的中文商业财经网站，旨在为中国商业菁英和决策者们提供每日不可或缺的商业财经新闻、深度分析以及评论。凭借英国《金融时报》遍布全球的丰富报道资源，FT中文网深入分析对中国经济和全球商业具有影响力的重大事件，并揭示事件的来龙去脉，以真正富有国际视野的权威报道成为中国高级管理人员“必读”的商业财经资讯网站。FT中文网目前拥有逾270 万注册用户，移动产品已覆盖iOS、Android和Windows系统。2018年4月，FT中文网正式推出付费订阅业务，为专属会员提供精选资讯与个性化服务。</p>
+                    </el-form>
+                </div>
+                <div class="right">
+                    <div class="sectionTitle" title="联系方式">
+                        <p class="detail">如您在注册时遇到任何问题或有任何建议, 请写邮件至:<br><a href="mailto:customer.service@ftchinese.com?subject=Help on Registration Form">customer.service@ftchinese.com</a>客服信箱，我们的工作人员将尽快为您解决。</p>
+                    </div>
+                    <div class="display-none">
+                        <div class="sectionTitle"  title="关于FT中文网 (FTChinese.com)">
+                            <p class="detail">FT中文网(http://www.FTChinese.com) 是英国《金融时报》集团旗下唯一的中文商业财经网站，旨在为中国商业菁英和决策者们提供每日不可或缺的商业财经新闻、深度分析以及评论。凭借英国《金融时报》遍布全球的丰富报道资源，FT中文网深入分析对中国经济和全球商业具有影响力的重大事件，并揭示事件的来龙去脉，以真正富有国际视野的权威报道成为中国高级管理人员“必读”的商业财经资讯网站。FT中文网目前拥有逾270 万注册用户，移动产品已覆盖iOS、Android和Windows系统。2018年4月，FT中文网正式推出付费订阅业务，为专属会员提供精选资讯与个性化服务。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         <navFooter></navFooter>
@@ -62,7 +64,7 @@
 import navHeader from '../components/Header'
 import navFooter from '../components/Footer'
 export default {
-    name: "registered",
+    name: "Registered",
     data() {
          // 自定义验证邮箱
         const checkEmail = (rule, value, callback) => {
@@ -101,8 +103,8 @@ export default {
                 email: '',
                 password: '',
                 phone: '',
-                emailType: [],
-                privacyType: []
+                emailType: ['《今日焦点》邮件', '《一周精选》邮件', '《午后速递》邮件'],
+                privacyType: ['我愿意接受FT中文网新服务和产品的通知', 'FT中文网及其慎重选择的第三方公司可以向我发送电子邮件', 'FT中文网及其慎重选择的第三方公司可以向我寄送信件']
             },
             rules: {
                 email: [

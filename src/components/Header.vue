@@ -4,11 +4,11 @@
             <a href="http://www.ftchinese.com/">
                 <img src="http://static.ftacademy.cn/img/logoHD.gif" alt="FT中文网" >
             </a>
-            <span>登录</span>
+            <span v-show="show">登录</span>
             <span v-show="isShow">新用户注册</span>
         </div>
         <div class="fastEntrance">
-            <span @click="goRegistered" >注册</span>
+            <span @click="goRegistered"  v-show="show">注册</span>
             <span v-show="isShow" @click="goLogin">登录</span>
             <a href="http://www.ftchinese.com/">首页</a>
         </div>
@@ -21,7 +21,7 @@ export default {
     data() {
         return {
             isShow: false,
-            dynamicSegment: ''
+            show: true
         };
     },
     methods: {
@@ -37,11 +37,11 @@ export default {
         }
     },
     watch: {
-        $route(to, from) {
-            console.log(to)
-            console.log(from)
-            this.dynamicSegment = to.query.id
-            this.isShow = true
+        change() {
+            if (this.$route.name === 'Registered') {
+                this.isShow = true;
+                this.show = false
+            }
         }
     }
 };
