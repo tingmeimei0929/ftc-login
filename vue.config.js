@@ -25,9 +25,10 @@ module.exports = {
         }
     },
     devServer: {
+
         proxy: {
             '/api': {
-                target: 'http://user.ftchinese.com', //接口
+                target: 'http://user.ftchinese.com/', //接口
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
