@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <navHeader></navHeader>
+        <navHeader :isRegistered=2></navHeader>
         <div class="container findPsd">
             <div class="content">
                 <el-form class="findPsd-type" :rules="rules" :model="ruleForm" ref="ruleForm"  label-width="100px">

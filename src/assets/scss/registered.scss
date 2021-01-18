@@ -54,19 +54,29 @@
                             border: 1px solid $color-input-border !important;
                             border-radius: 5px;
                             padding: 3px 5px;
-                        }
-                    }
-                    p{
-                        font-size: pxToRem(18px) !important;
-                        margin-bottom: 30px;
-                        width: 60%;
-                        margin-left: auto;
-                        margin-right: auto;
 
-                        a{
-                            color: $color-a !important;
+                            i{
+                                cursor:pointer; 
+                                padding:10px;
+                                font-size:pxToRem(18px);
+                                margin-top: 5px;
+                            }
+                        }
+
+                        &.info{
+                            .el-form-item__content{
+                                margin-left: initial !important;
+                            }
+        
+                            p{
+                                font-size: pxToRem(18px) !important;
+                                a{
+                                    color: $color-a !important;
+                                }
+                            }
                         }
                     }
+                   
                     .button {
                         cursor: pointer;
                         width: 60%;

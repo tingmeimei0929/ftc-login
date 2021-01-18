@@ -51,7 +51,6 @@ export default {
     }
 }
 </script>
-  
 <style lang="scss" scoped>
 @import url('../assets/scss/footer.scss');
 </style>

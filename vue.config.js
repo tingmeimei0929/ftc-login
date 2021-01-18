@@ -25,11 +25,14 @@ module.exports = {
         }
     },
     devServer: {
-
+        open: true,
+        host: 'localhost',
+        port: 8082,
+        https: false,
         proxy: {
             '/api': {
                 target: 'http://user.ftchinese.com/', //接口
-                changeOrigin: true,
+                changeOrigin: true, //允许跨域
                 ws: true,
                 pathRewrite: {
                     '^/api': ''
