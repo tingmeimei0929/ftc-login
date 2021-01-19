@@ -31,7 +31,7 @@ module.exports = {
         https: false,
         proxy: {
             '/api': {
-                target: 'http://user.ftchinese.com/', //接口
+                target: 'http://10.99.10.11', //接口
                 changeOrigin: true, //允许跨域
                 ws: true,
                 pathRewrite: {

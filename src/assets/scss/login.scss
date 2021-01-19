@@ -88,8 +88,8 @@
                             .smsBtn {
                                 display: inline-block;
                                 width: 40%;
-                                padding: 3px 5px;
                                 cursor: pointer;
+                                border: none;
                                 border-left: 1px solid $color-input-border !important;
                             }
                         }
@@ -99,7 +99,7 @@
                             border: none !important;
                             position: relative;
 
-                            .el-checkbox {
+                            .sidentify {
                                 display: inline-block;
                                 width: 50%;
                                 text-align: start;
