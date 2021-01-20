@@ -7,14 +7,13 @@
         </a>
         <span v-if="isRegistered === 2">FT中文网</span>
         <span v-if="isRegistered === 0">登录</span>
-        <span v-if="isRegistered === 1">新用户注册</span>
+        <span v-if="isRegistered === 1">信息绑定</span>
         </div>
         <div class="fastEntrance">
         <span @click="goRegistered"
-                v-if="isRegistered === 0">注册</span>
-        <span v-if="isRegistered === 1"
-                @click="goLogin">登录</span>
-        <a href="http://www.ftchinese.com/">首页</a>
+                v-if="isRegistered === 0">找回密码</span>
+        <span v-if="isRegistered === 1" class="beforeNone"><a href="http://www.ftchinese.com/">跳过此页</a></span>
+        <a v-if="isRegistered === 0" href="http://www.ftchinese.com/">首页</a>
         </div>
     </div>
 </template>
@@ -32,7 +31,7 @@ export default {
     methods: {
         goRegistered () {
         this.$router.push({
-            path: 'Registered',
+            path: 'ForgetPsd',
         })
         },
         goLogin () {

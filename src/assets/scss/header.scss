@@ -41,6 +41,10 @@
             margin: 0 20px;
             font-size: pxToRem(20px);
         }
+
+        .beforeNone::after{
+            content: '' !important;
+        }
     }
 }
 @include bp-large{

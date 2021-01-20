@@ -1,14 +1,11 @@
 <template>
     <div class="content">
         <el-form class="login-type"
-                status-icon 
                 :rules="rules2"
                 :model="ruleForm2"
-                ref="ruleForm2"
-                label-width="100px">
+                ref="ruleForm2">
             <el-form-item class="emailItem"
-                            prop="email"
-                            label="登录邮箱">
+                            prop="email">
                 <el-input type="text"
                         placeholder="请输入您的邮箱"
                         name="email"
@@ -17,23 +14,25 @@
                 </el-input>
             </el-form-item>
             <el-form-item class="emailItem"
-                            prop="password"
-                            label="登录密码">
-                <el-input type="text"
+                            prop="password">
+                <el-input :type="passw"
                         placeholder="请输入您的密码"
                         name="password"
                         class="password"
                         v-model="ruleForm2.password">
+                    <i slot="suffix"
+                        @click="showPass"
+                        :class="icon"></i>
                 </el-input>
             </el-form-item>
-            <el-form-item class="emailItem remember">
+            <!-- <el-form-item class="emailItem remember">
                 <el-checkbox v-model="checked"
                             class="sidentify">记住我</el-checkbox>
                 <div class="manner">
                 <a @click="forgetPsd">忘记密码</a>
                 <a @click="registered">立即注册</a>
                 </div>
-            </el-form-item>
+            </el-form-item> -->
             <el-button class="button" type="primary"
                         @click="loginSubmit('ruleForm2'), rememberUser()">立即登录</el-button>
             <el-button class="button wxBtn"><a href="https://www.ftacademy.cn/wxlogin">微信登录</a></el-button>
@@ -65,6 +64,8 @@ export default {
             }
         }
         return {
+            passw: "password",
+            icon: "el-icon-view",
             checked: true,
             ruleForm2: {
                 email: '',
@@ -86,15 +87,14 @@ export default {
         this.getCookie()
     },
     methods: {
-        forgetPsd () {
-            this.$router.push({
-                path: 'ForgetPsd'
-            })
-        },
-        registered () {
-            this.$router.push({
-                path: 'Registered'
-            })
+        showPass () {
+            if (this.passw == "text") {
+                this.passw = "password"
+                this.icon = "el-icon-view"
+            } else {
+                this.passw = "text"
+                this.icon = "el-icon-loading"
+            }
         },
         // 记住再此电脑
         rememberUser () {
@@ -143,7 +143,7 @@ export default {
                     }
                     this.axios.post('/api/login', formData).then(res => {
                         this.$message.success('登录成功')
-
+                        this.$router.push('/Registered')
                     })
                 }
             })

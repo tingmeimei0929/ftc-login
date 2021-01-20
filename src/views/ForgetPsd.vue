@@ -3,16 +3,16 @@
         <navHeader :isRegistered=2></navHeader>
         <div class="container findPsd">
             <div class="content">
-                <el-form class="findPsd-type" :rules="rules" :model="ruleForm" ref="ruleForm"  label-width="100px">
+                <el-form class="findPsd-type" :rules="rules4" :model="ruleForm4" ref="ruleForm4"  label-width="100px">
                     <h2>输入注册时所填写的电子邮箱</h2>
-                    <el-form-item  class="findPsdItem" prop="email">
+                    <el-form-item  class="findPsdItem" prop="reg_email">
                         <el-input type="text"
                             placeholder="请输入您的邮箱"
-                            name="email"
-                            class="email" v-model="ruleForm.email">
+                            name="reg_email"
+                            class="email" v-model="ruleForm4.reg_email">
                         </el-input>
                     </el-form-item>
-                    <el-button class="button" @click="submitForm('ruleForm')">提交</el-button>
+                    <el-button class="button" @click="findPsdForm('ruleForm4')">提交</el-button>
                 </el-form>
             </div>
         </div>
@@ -37,11 +37,11 @@ export default {
             }
         }
         return {
-            ruleForm: {
-                email: ''
+            ruleForm4: {
+                reg_email: ''
             },
-            rules: {
-                email: [
+            rules4: {
+                reg_email: [
                     { required: true, message: '请输入邮箱', trigger: 'blur' },
                     { validator: checkEmail, trigger: 'blur' }
                 ]
@@ -52,6 +52,20 @@ export default {
         navHeader,
         navFooter
     },
+    methods: {
+         // <!--找回密码提交-->
+        findPsdForm (formName) {
+            this.$refs[formName].validate(valid => {
+                if (valid) {
+                    this.axios.post('http://profile.ftchinese.com/users/findpassword', {reg_email: this.ruleForm4.reg_email}).then(res => {
+                        if(res.data.code == 200) {
+                            this.$message.success('系统已向您的邮箱发送了一封邮件，请按邮件中的链接重置密码')
+                        } 
+                    })
+                }
+            })
+        }
+    }
 };
 </script>
 

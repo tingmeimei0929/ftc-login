@@ -25,10 +25,6 @@ module.exports = {
         }
     },
     devServer: {
-        open: true,
-        host: 'localhost',
-        port: 8082,
-        https: false,
         proxy: {
             '/api': {
                 target: 'http://10.99.10.11', //接口

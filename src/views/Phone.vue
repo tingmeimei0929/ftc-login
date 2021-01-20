@@ -1,18 +1,18 @@
 <template>
     <div class="content">
-        <el-form class="login-type" :rules="rules" :model="ruleForm" ref="ruleForm">
-            <el-form-item  class="smsItem" prop="phone" >
+        <el-form class="login-type" :rules="rules3" :model="ruleForm3" ref="ruleForm3">
+            <el-form-item  class="smsItem" prop="mobile_phone_no" >
                 <el-input type="text"
                     placeholder="请输入您的手机号码"
-                    name="phone"
-                    class="phone" v-model="ruleForm.phone">
+                    name="mobile_phone_no"
+                    class="phone" v-model="ruleForm3.mobile_phone_no">
                 </el-input>
             </el-form-item>
-            <el-form-item class="smsItem last"  prop="验证码">
+            <el-form-item class="smsItem last"  prop="smsCode">
                 <el-input type="text"
-                    placeholder="短信验证码"
+                    placeholder="输入6位短信验证码"
                     name="smsCode"
-                    class="smsCode" v-model="ruleForm.sendCode">
+                    class="smsCode" v-model="ruleForm3.smsCode">
                 </el-input>
                 <el-button class="smsBtn" type="button" @click="sendCode" :disabled="disabled" v-if="disabled==false" >
                     发送验证码
@@ -21,14 +21,14 @@
                     {{ btntxt }}
                 </el-button>
             </el-form-item>
-            <el-form-item class="smsItem remember">
+            <!-- <el-form-item class="smsItem remember">
                 <div  class="sidentify"></div>
                 <div class="manner">
                     <router-link to="/ForgetPsd">忘记密码</router-link>
                     <router-link to="/Registered">立即注册</router-link>
                 </div>
-            </el-form-item>
-            <el-button class="button" @click="submitForm('ruleForm')">立即登录</el-button>
+            </el-form-item> -->
+            <el-button class="button" @click="submitForm('ruleForm3')">立即登录</el-button>
             <el-button class="button wxBtn"><a href="https://www.ftacademy.cn/wxlogin">微信登录</a></el-button>
         </el-form>
     </div>
@@ -50,21 +50,31 @@ export default {
                 }
             }
         }
+        // 验证短信验证码
+        const checkCode = (rule, value, callback) => {
+            const codeReg = /^\d{6}$/
+            if (codeReg.test(value)) {
+                callback()
+            } else {
+                callback(new Error("请输入正确的短信验证码"))
+            }
+        }
         return {
             disabled: false,
             time: 0,
             btntxt: '重新发送',
-            ruleForm: {
-                phone: '',
-                sendCode: ''
+            ruleForm3: {
+                mobile_phone_no: '',
+                smsCode: ''
             },
-            rules: {
-                phone: [
+            rules3: {
+                mobile_phone_no: [
                     { required: true, message: "请输入手机号码", trigger: 'blur' },
                     { validator: checkMobile, trigger: 'blur'}
                 ],
                 smsCode: [
-                    { required: true, message: "请输入验证码", trigger: 'blur' }
+                    { required: true, message: "请输入短信验证码", trigger: 'blur' },
+                    {  validator: checkCode, trigger: 'blur' }
                 ]
             },
             content: '获取验证码',
@@ -77,8 +87,14 @@ export default {
         // 手机验证发送验证码
         sendCode() {
             const reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
-            if (reg.test(this.ruleForm.phone)) {
-                console.log(this.ruleForm.phone)
+            if(this.ruleForm3.mobile_phone_no == '') {
+                this.$message({
+                    message: '手机号不能为空',
+                    center: true
+                })
+                return
+            }
+            if (reg.test(this.ruleForm3.mobile_phone_no)) {
                 this.$message({
                     message: '发送成功',
                     type: 'success',
@@ -89,7 +105,7 @@ export default {
                 this.timer()
             }
         },
-        // 60秒倒计时 
+        // 60秒倒计时
         timer(){
             if (this.time > 0) {
                 this.time--
@@ -101,36 +117,21 @@ export default {
                 this.disabled = false
             }
         },
-        countDown () {
-            if (!this.canclick) {
-                return
-            }
-            this.canclick = false
-            this.content = '重新发送(' + this.totalTime + ')'
-            const clock = window.setInterval(() => {
-                this.totalTime--
-                this.content = '重新发送(' + this.totalTime + ')'
-                if (this.totalTime < 0) {
-                window.clearInterval(clock)
-                this.content = '获取验证码'
-                this.totalTime = 60
-                this.canclick = true
-                }
-            }, 1000)
-        },
         // <!--提交登录-->
         submitForm (formName) {
             this.$refs[formName].validate(valid => {
                 if (valid) {
-                    setTimeout(() => {
-                        this.$message({
-                            message: '登录成功！',
-                            type: 'success'
-                        })
-                    }, 400)
-                } else {
-                    console.log('error submit!!')
-                    return false
+                    let formData = new FormData()
+                    for(let key in this.ruleForm3) {
+                        formData.append(key, this.ruleForm3[key])
+                        console.log(formData.get[key])
+                    }
+                    this.axios.post('/api/users/login', formData).then(res => {
+                        this.$message.success('登录成功！')
+                        this.$router.push('/Registered')
+                    }).catch(error => {
+                        this.$message.success('登录失败！')
+                    })
                 }
             })
         }
