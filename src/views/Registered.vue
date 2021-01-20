@@ -64,7 +64,7 @@
                                 prop="service">
                     <p>请您阅读我们的<a href="http://www.ftchinese.com/m/corp/service.html">用户注册协议</a>和<a href="http://www.ftchinese.com/m/corp/service.html#privacy">隐私权保护政策</a>，点击下方按钮即视为您接受。</p>
                 </el-form-item>
-                <el-button class="button" @click="registerForm('ruleForm')">同意并注册</el-button>
+                <el-button class="button" @click="registerForm('ruleForm')">同意并绑定</el-button>
             </el-form>
         </div>
         <div class="right">
