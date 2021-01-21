@@ -37,7 +37,9 @@
                             placeholder="请输入您的手机号码"
                             name="phone"
                             class="phone"
-                            v-model="ruleForm.mobile_phone_no">
+                            v-model="ruleForm.mobile_phone_no">{{
+                                $store.getters.username
+                            }}
                     </el-input>
                 </el-form-item>
                 <el-form-item class="emailItem"

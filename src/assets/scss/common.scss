@@ -18,6 +18,7 @@ body {
     background: $color-paper 0 0;
     line-height: initial !important;
     position: relative;
+    margin: 0;
 }
 
 .container{
@@ -32,9 +33,12 @@ ol,
 li {
     list-style-type: none;
 }
-
+img{
+    border-style: none;
+}
 a {
     text-decoration: none;
+    background-color: transparent;
 }
 
 button,

@@ -8,11 +8,13 @@
                     class="phone" v-model="ruleForm3.mobile_phone_no">
                 </el-input>
             </el-form-item>
-            <el-form-item class="smsItem last" >
-                <el-input type="text"
+            <el-form-item class="smsItem last">
+                <el-input
+                    oninput="value=value.replace(/[^\d]/g, '')"
+                    maxlength="6"
                     placeholder="输入6位短信验证码"
                     name="smsCode"
-                    class="smsCode" v-model="verifyCode">
+                    class="smsCode" v-model="verify_code" >
                 </el-input>
                 <el-button class="smsBtn" type="button" @click="sendCode" :disabled="disabled" v-if="disabled==false" >
                     发送验证码
@@ -20,6 +22,7 @@
                 <el-button class="smsBtn" type="button" @click="sendCode" :disabled="disabled" v-if="disabled==true" >
                     {{ btntxt }}
                 </el-button>
+                <div class="el-form-item__error">{{ message }}</div>
             </el-form-item>
             <!-- <el-form-item class="smsItem remember">
                 <div  class="sidentify"></div>
@@ -54,7 +57,8 @@ export default {
             disabled: false,
             time: 0,
             btntxt: '重新发送',
-            verifyCode: '',
+            verify_code: '',
+            message: '',
             ruleForm3: {
                 mobile_phone_no: ''
             },
@@ -83,8 +87,8 @@ export default {
             const reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
             if (reg.test(this.ruleForm3.mobile_phone_no)) {
                 this.axios.post('/api/users/login/captcha', {
-                    tpl_id: '',
-                    key: '',
+                    // tpl_id: '',
+                    // key: '',
                     mobile_phone_no: this.ruleForm3.mobile_phone_no
                 }).then(res => {
                     this.$message({
@@ -113,32 +117,27 @@ export default {
         // <!--提交登录-->
         submitForm (formName) {
             const codeReg = /^\d{6}$/
-            if(codeReg.test(this.verifyCode) == '') {
-                this.$notify({
-                    message: '请输入短信验证码'
-                })
-            } else if(!codeReg.test(this.verifyCode)){
-                this.$notify({
-                    message: '请输入正确的短信验证码'
-                })
-            }else {
+            if(codeReg.test(this.verify_code) == '') {
+                this.message = '请输入短信验证码'
+            } else if (!codeReg.test(this.verify_code)) {
+                this.message = '请输入正确的短信验证码'
+            } else {
                 this.$refs[formName].validate(valid => {
                     if (valid) {
-                        let formData = new FormData()
-                        for(let key in this.ruleForm3) {
-                            formData.append(key, this.ruleForm3[key])
-                            console.log(formData.get[key])
-                        }
-                        this.axios.post('/api/users/login', formData).then(res => {
+                        this.axios.post('/api/users/login', {
+                            mobile_phone_no: this.ruleForm3.mobile_phone_no,
+                            verify_code: this.verify_code
+                        }).then(res => {
                             this.$message.success('登录成功！')
                             this.$router.push('/Registered')
+                            localStorage.setItem('token', res.data.mobile_phone_no)
+                            this.$store.commit('handlePhone', res.data.mobile_phone_no)
                         }).catch(error => {
                             this.$message.success('登录失败！')
                         })
                     }
                 })
             }
-            
         }
     }
 }

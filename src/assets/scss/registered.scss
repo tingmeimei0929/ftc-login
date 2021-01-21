@@ -49,6 +49,15 @@
                         .el-input__inner {
                             border: none !important;
                         }
+                        .el-input__inner::placeholder{
+                            color: $color-border !important;
+                        }
+                        .el-input__inner::-webkit-input-placeholder{
+                            color: $color-border !important;
+                        }
+                        .el-input__inner::-moz-placeholder{
+                            color: $color-border !important;
+                        }
 
                         .el-input {
                             border: 1px solid $color-input-border !important;
