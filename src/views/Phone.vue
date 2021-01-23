@@ -129,9 +129,13 @@ export default {
                             verify_code: this.verify_code
                         }).then(res => {
                             this.$message.success('登录成功！')
+                            //将电话号码放入到sessionStorage
+                            sessionStorage.setItem("userPhone", res.data.mobile_phone_no)
+                             // 将电话号码放入
+                            console.log(res.data.mobile_phone_no)
+                            this.$store.dispatch('setPhone', res.data.mobile_phone_no)
                             this.$router.push('/Registered')
-                            localStorage.setItem('token', res.data.mobile_phone_no)
-                            this.$store.commit('handlePhone', res.data.mobile_phone_no)
+                            console.log(this.$store.state.isPhoneLogin)
                         }).catch(error => {
                             this.$message.success('登录失败！')
                         })

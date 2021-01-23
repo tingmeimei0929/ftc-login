@@ -1,23 +1,23 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as getters from './getters'
+import * as actions from './actions'
+import * as mutations from './mutations'
 
 Vue.use(Vuex)
 
+
 export default new Vuex.Store({
+    strict: true,
     state: {
-        phone: '' || localStorage.getItem('phone')
+        currentPhone: null,
+        currentEmail: null,
+        currentPsd: null,
+        isEmailLogin: false,
+        isPhoneLogin:false,
+        token: ''
     },
-    mutations: {
-        handlePhone: (state, phone) => {
-            state.phone = phone
-            // 帮登录的信息保存到localStorage中，防止页面刷新，导致vuex重新启动
-            localStorage.setItem('phone', phone)
-        }
-    },
-    actions: {
-    },
-    // getters只会依赖state中的成员去更新
-    getters: {
-        mobile_phone_no: (state) => state.phone
-    }
+    mutations,
+    actions,
+    getters
 })

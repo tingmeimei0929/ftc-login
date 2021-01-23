@@ -14,8 +14,6 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueAxios, axios)
 
-
-import './assets/cookie.js'
 // 引入scss文件
 import './assets/scss/header.scss'
 import './assets/scss/login.scss'
@@ -26,7 +24,7 @@ import './assets/scss/palette.scss'
 import './assets/scss/registered.scss'
 import './assets/scss/forgetPsd.scss'
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')

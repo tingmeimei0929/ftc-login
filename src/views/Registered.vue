@@ -37,9 +37,8 @@
                             placeholder="请输入您的手机号码"
                             name="phone"
                             class="phone"
-                            v-model="ruleForm.mobile_phone_no">{{
-                                $store.getters.username
-                            }}
+                            :disabled="isPhoneLogin"
+                            v-model="ruleForm.mobile_phone_no">
                     </el-input>
                 </el-form-item>
                 <el-form-item class="emailItem"
@@ -185,6 +184,14 @@ export default {
     components: {
         navHeader,
         navFooter
+    },
+    computed: {
+        isPhoneLogin() {
+            console.log(this.$store.state.isPhoneLogin)
+            this.ruleForm.mobile_phone_no = this.$store.state.currentPhone;
+            console.log(this.$store.state.currentPhone)
+            return this.$store.state.isPhoneLogin
+        }
     },
     methods: {
         showPass () {
