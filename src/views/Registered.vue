@@ -12,6 +12,7 @@
                             placeholder="请输入您的邮箱"
                             name="email"
                             class="email"
+                            :disabled="emailLoginStatus"
                             v-model="ruleForm.email">
                     </el-input>
                     <small>用于找回您遗忘的密码，请正确填写</small>
@@ -23,6 +24,7 @@
                             placeholder="请输入您的密码"
                             name="password"
                             class="password"
+                            :disabled="emailLoginStatus"
                             v-model="ruleForm.password">
                     <i slot="suffix"
                         @click="showPass"
@@ -37,7 +39,7 @@
                             placeholder="请输入您的手机号码"
                             name="phone"
                             class="phone"
-                            :disabled="isPhoneLogin"
+                            :disabled="phoneLoginStatus"
                             v-model="ruleForm.mobile_phone_no">
                     </el-input>
                 </el-form-item>
@@ -141,6 +143,7 @@ export default {
             }
         }
         return {
+            edit: true,
             passw: "password",
             icon: "el-icon-view",
             emailList: [
@@ -186,11 +189,14 @@ export default {
         navFooter
     },
     computed: {
-        isPhoneLogin() {
-            console.log(this.$store.state.isPhoneLogin)
-            this.ruleForm.mobile_phone_no = this.$store.state.currentPhone;
-            console.log(this.$store.state.currentPhone)
-            return this.$store.state.isPhoneLogin
+        phoneLoginStatus() {
+            this.ruleForm.mobile_phone_no = sessionStorage.getItem("userPhone")
+            return sessionStorage.getItem("phoneLoginStatus") ? true : false;
+        },
+        emailLoginStatus() {
+            this.ruleForm.email = sessionStorage.getItem("userEmail")
+            this.ruleForm.password = sessionStorage.getItem("userPassword")
+            return sessionStorage.getItem("emailLoginStatus") ? true : false;
         }
     },
     methods: {

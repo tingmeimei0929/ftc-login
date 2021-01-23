@@ -143,6 +143,13 @@ export default {
                     }
                     this.axios.post('/api/login', formData).then(res => {
                         this.$message.success('登录成功')
+                        var userInfo = JSON.parse(res.data.data)
+                        console.log(res.data.data)
+                        //将邮箱和密码放入到sessionStorage
+                        sessionStorage.setItem("userEmail", userInfo.email)
+                        sessionStorage.setItem("userPassword", userInfo.password)
+                        sessionStorage.setItem("emailLoginStatus", true)
+                            // 将电话号码放入
                         this.$router.push('/Registered')
                     })
                 }

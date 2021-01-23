@@ -131,12 +131,13 @@ export default {
                             this.$message.success('登录成功！')
                             //将电话号码放入到sessionStorage
                             sessionStorage.setItem("userPhone", res.data.mobile_phone_no)
+                            sessionStorage.setItem("phoneLoginStatus", true)
                              // 将电话号码放入
                             console.log(res.data.mobile_phone_no)
-                            this.$store.dispatch('setPhone', res.data.mobile_phone_no)
                             this.$router.push('/Registered')
                             console.log(this.$store.state.isPhoneLogin)
                         }).catch(error => {
+                            sessionStorage.setItem("phoneLoginStatus", false)
                             this.$message.success('登录失败！')
                         })
                     }
