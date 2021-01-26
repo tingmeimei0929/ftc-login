@@ -12,7 +12,6 @@
         <div class="fastEntrance">
             <span @click="goRegistered"
                     v-if="isRegistered === 0">找回密码</span>
-            <span v-if="isRegistered === 1" class="beforeNone"><a href="http://www.ftchinese.com/">跳过此页</a></span>
             <a v-if="isRegistered === 0" href="http://www.ftchinese.com/">首页</a>
         </div>
     </div>

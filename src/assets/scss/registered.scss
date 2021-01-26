@@ -85,7 +85,6 @@
                             }
                         }
                     }
-                   
                     .button {
                         cursor: pointer;
                         width: 60%;
@@ -97,6 +96,11 @@
                         background-color: $color-button-bgColor;
                         color: $color-white;
                         font-size: pxToRem(20px);
+
+                        a{
+                            color: $color-white !important;
+                            font-size: pxToRem(20px);
+                        }
                     }
                 }
             }

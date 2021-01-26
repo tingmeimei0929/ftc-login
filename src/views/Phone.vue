@@ -116,33 +116,30 @@ export default {
         },
         // <!--提交登录-->
         submitForm (formName) {
-            const codeReg = /^\d{6}$/
-            if(codeReg.test(this.verify_code) == '') {
-                this.message = '请输入短信验证码'
-            } else if (!codeReg.test(this.verify_code)) {
-                this.message = '请输入正确的短信验证码'
-            } else {
-                this.$refs[formName].validate(valid => {
-                    if (valid) {
-                        this.axios.post('/api/users/login', {
-                            mobile_phone_no: this.ruleForm3.mobile_phone_no,
-                            verify_code: this.verify_code
-                        }).then(res => {
-                            this.$message.success('登录成功！')
-                            //将电话号码放入到sessionStorage
-                            sessionStorage.setItem("userPhone", res.data.mobile_phone_no)
-                            sessionStorage.setItem("phoneLoginStatus", true)
-                             // 将电话号码放入
-                            console.log(res.data.mobile_phone_no)
-                            this.$router.push('/Registered')
-                            console.log(this.$store.state.isPhoneLogin)
-                        }).catch(error => {
-                            sessionStorage.setItem("phoneLoginStatus", false)
-                            this.$message.success('登录失败！')
-                        })
-                    }
-                })
-            }
+            this.$refs[formName].validate(valid => {
+                const codeReg = /^\d{6}$/
+                if (valid && codeReg.test(this.verify_code)) {
+                    this.axios.post('/api/users/login', {
+                        mobile_phone_no: this.ruleForm3.mobile_phone_no,
+                        verify_code: this.verify_code
+                    }).then(res => {
+                        this.$message.success('登录成功！')
+                        console.log(res.data)
+                        //将电话号码放入到sessionStorage
+                        sessionStorage.setItem("userPhone", res.data.mobile_phone_no)
+                        sessionStorage.setItem("phoneLoginStatus", true)
+                            // 将电话号码放入
+                        console.log(res.data.mobile_phone_no)
+                        this.$router.push('/Registered')
+                        console.log(this.$store.state.isPhoneLogin)
+                    }).catch(error => {
+                        sessionStorage.setItem("phoneLoginStatus", false)
+                        this.$message.success('登录失败！')
+                    })
+                } else {
+                    this.message = '请输入短信验证码'
+                }
+            })
         }
     }
 }

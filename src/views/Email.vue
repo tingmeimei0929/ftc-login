@@ -93,7 +93,7 @@ export default {
                 this.icon = "el-icon-view"
             } else {
                 this.passw = "text"
-                this.icon = "el-icon-loading"
+                this.icon = "el-icon-magic-stick"
             }
         },
         // 记住再此电脑

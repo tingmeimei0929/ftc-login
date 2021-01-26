@@ -68,12 +68,14 @@
                     <p>请您阅读我们的<a href="http://www.ftchinese.com/m/corp/service.html">用户注册协议</a>和<a href="http://www.ftchinese.com/m/corp/service.html#privacy">隐私权保护政策</a>，点击下方按钮即视为您接受。</p>
                 </el-form-item>
                 <el-button class="button" @click="registerForm('ruleForm')">同意并绑定</el-button>
+                <el-button class="button"><a href="http://www.ftchinese.com/">跳过此页</a></el-button>
+
             </el-form>
         </div>
         <div class="right">
             <div class="sectionTitle"
                 title="联系方式">
-            <p class="detail">如您在注册时遇到任何问题或有任何建议, 请写邮件至:<br><a href="mailto:customer.service@ftchinese.com?subject=Help on Registration Form">customer.service@ftchinese.com</a>客服信箱，我们的工作人员将尽快为您解决。</p>
+            <p class="detail">如您在绑定时遇到任何问题或有任何建议, 请写邮件至:<br><a href="mailto:customer.service@ftchinese.com?subject=Help on Registration Form">customer.service@ftchinese.com</a>客服信箱，我们的工作人员将尽快为您解决。</p>
             </div>
             <div class="display-none">
             <div class="sectionTitle"
@@ -206,7 +208,7 @@ export default {
                 this.icon = "el-icon-view"
             } else {
                 this.passw = "text"
-                this.icon = "el-icon-loading"
+                this.icon = "el-icon-magic-stick"
             }
         },
         handCheckEmail (checked, val) {

@@ -7,9 +7,8 @@ module.exports = {
     // publicPath: process.env.NODE_ENV === 'production'
     // ? '/newScreen/' // 打包后发布文件名
     // : '/' , // 开发环境相对路径
-    outputDir: "dist",
-    assetsDir: "assets",
-    indexPath: "./public/index.html",
+    outputDir: "webroot",
+    // assetsDir: "static",
     productionSourceMap: true,
     css: {
         requireModuleExtension: true,
