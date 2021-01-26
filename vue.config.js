@@ -2,13 +2,23 @@
 const webpack = require('webpack')
 const path = require('path')
 const {VueLoaderPlugin} = require('vue-loader')
+const TimeStamp = new Date().getTime()
 module.exports = {
     publicPath: "./",
     // publicPath: process.env.NODE_ENV === 'production'
     // ? '/newScreen/' // 打包后发布文件名
     // : '/' , // 开发环境相对路径
     outputDir: "webroot",
-    // assetsDir: "static",
+    assetsDir: "static",
+    indexPath: "login.html",
+    lintOnSave: true,
+    configureWebpack: {
+        output: {
+            // 输出重构 打包编译后 文件名称 
+            filename: `js/[name].${TimeStamp}.js`,
+            chunkFilename: `js/[name].${TimeStamp}.js`
+        }
+    },
     productionSourceMap: true,
     css: {
         requireModuleExtension: true,

@@ -13,17 +13,17 @@
                         v-model="ruleForm2.email">
                 </el-input>
             </el-form-item>
-            <el-form-item class="emailItem"
-                            prop="password">
+            <el-form-item class="smsItem last"
+                            prop="text">
                 <el-input :type="passw"
                         placeholder="请输入您的密码"
                         name="password"
-                        class="password"
+                        class="smsCode"
                         v-model="ruleForm2.password">
-                    <i slot="suffix"
-                        @click="showPass"
-                        :class="icon"></i>
                 </el-input>
+                <el-button class="smsBtn" type="button" @click="findPsd" >
+                    找回密码
+                </el-button>
             </el-form-item>
             <!-- <el-form-item class="emailItem remember">
                 <el-checkbox v-model="checked"
@@ -64,8 +64,6 @@ export default {
             }
         }
         return {
-            passw: "password",
-            icon: "el-icon-view",
             checked: true,
             ruleForm2: {
                 email: '',
@@ -87,14 +85,10 @@ export default {
         this.getCookie()
     },
     methods: {
-        showPass () {
-            if (this.passw == "text") {
-                this.passw = "password"
-                this.icon = "el-icon-view"
-            } else {
-                this.passw = "text"
-                this.icon = "el-icon-magic-stick"
-            }
+        findPsd() {
+            this.$router.push({
+                path: 'ForgetPsd',
+            })
         },
         // 记住再此电脑
         rememberUser () {

@@ -122,6 +122,12 @@ export default {
                     this.axios.post('/api/users/login', {
                         mobile_phone_no: this.ruleForm3.mobile_phone_no,
                         verify_code: this.verify_code
+                    },{
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                            "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+                        }
                     }).then(res => {
                         this.$message.success('登录成功！')
                         console.log(res.data)
