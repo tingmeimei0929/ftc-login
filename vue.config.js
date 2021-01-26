@@ -9,7 +9,7 @@ module.exports = {
     // ? '/newScreen/' // 打包后发布文件名
     // : '/' , // 开发环境相对路径
     outputDir: "webroot",
-    assetsDir: "static",
+    // assetsDir: "static",
     indexPath: "login.html",
     lintOnSave: true,
     configureWebpack: {
@@ -36,7 +36,8 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://10.99.10.11', //接口
+                // target: 'http://10.99.10.11', //接口
+                target: 'http://www.ftchinese.com',
                 changeOrigin: true, //允许跨域
                 ws: true,
                 pathRewrite: {
