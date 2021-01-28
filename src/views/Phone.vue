@@ -86,19 +86,17 @@ export default {
             }
             const reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
             if (reg.test(this.ruleForm3.mobile_phone_no)) {
-                this.axios.post('/api/users/login/captcha', {
+                this.axios.post('/users/login/captcha', {
                     // tpl_id: '',
                     // key: '',
                     mobile_phone_no: this.ruleForm3.mobile_phone_no
                 }).then(res => {
-                    this.$message({
-                        message: '发送成功',
-                        type: 'success',
-                        center: true
-                    })
-                    this.time = 60
-                    this.disabled = true
-                    this.timer()
+                    if (res.data.code == 200 && res.data.status == "success"){
+                        this.$message("Sent")
+                        this.time = 60
+                        this.disabled = true
+                        this.timer()
+                    }
                 })
             }
         },
@@ -119,7 +117,7 @@ export default {
             this.$refs[formName].validate(valid => {
                 const codeReg = /^\d{6}$/
                 if (valid && codeReg.test(this.verify_code)) {
-                    this.axios.post('/api/users/login', {
+                    this.axios.post('/users/login', {
                         mobile_phone_no: this.ruleForm3.mobile_phone_no,
                         verify_code: this.verify_code
                     },{
@@ -129,18 +127,20 @@ export default {
                             "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
                         }
                     }).then(res => {
-                        this.$message.success('登录成功！')
-                        console.log(res.data)
-                        //将电话号码放入到sessionStorage
-                        sessionStorage.setItem("userPhone", res.data.mobile_phone_no)
-                        sessionStorage.setItem("phoneLoginStatus", true)
-                            // 将电话号码放入
-                        console.log(res.data.mobile_phone_no)
-                        this.$router.push('/Registered')
-                        console.log(this.$store.state.isPhoneLogin)
-                    }).catch(error => {
-                        sessionStorage.setItem("phoneLoginStatus", false)
-                        this.$message.success('登录失败！')
+                        if (res.data.code == 200 && res.data.status == "success") {
+                            this.$message.success('Login successful')
+                            var phoneInfo = JSON.parse(res.data.data)
+                            //将电话号码放入到sessionStorage
+                            sessionStorage.setItem("userPhone", phoneInfo.mobile_phone_no)
+                            sessionStorage.setItem("phoneLoginStatus", true)
+                                // 将电话号码放入
+                            console.log(phoneInfo.mobile_phone_no)
+                            this.$router.push('/Registered')
+                            console.log(this.$store.state.isPhoneLogin)
+                        }else if(res.data.code == 500 && res.data.status == "error"){
+                            this.$message.success('Verification not passed')
+                            sessionStorage.setItem("phoneLoginStatus", false)
+                        }
                     })
                 } else {
                     this.message = '请输入短信验证码'

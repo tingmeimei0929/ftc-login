@@ -14,8 +14,8 @@
                 </el-input>
             </el-form-item>
             <el-form-item class="smsItem last"
-                            prop="text">
-                <el-input :type="passw"
+                            prop="password">
+                <el-input type="password"
                         placeholder="请输入您的密码"
                         name="password"
                         class="smsCode"
@@ -135,16 +135,18 @@ export default {
                         formData.append(key, this.ruleForm2[key])
                         console.log(formData.get[key])
                     }
-                    this.axios.post('/api/login', formData).then(res => {
-                        this.$message.success('登录成功')
-                        var userInfo = JSON.parse(res.data.data)
-                        console.log(res.data.data)
-                        //将邮箱和密码放入到sessionStorage
-                        sessionStorage.setItem("userEmail", userInfo.email)
-                        sessionStorage.setItem("userPassword", userInfo.password)
-                        sessionStorage.setItem("emailLoginStatus", true)
-                            // 将电话号码放入
-                        this.$router.push('/Registered')
+                    this.axios.post('/login', formData).then(res => {
+                        if (res.data.code == 200 && res.data.status == "success") {
+                            this.$message.success('Login successful')
+                            var userInfo = JSON.parse(res.data.data)
+                            console.log(res.data.data)
+                            //将邮箱和密码放入到sessionStorage
+                            sessionStorage.setItem("userEmail", userInfo.email)
+                            sessionStorage.setItem("userPassword", userInfo.password)
+                            sessionStorage.setItem("emailLoginStatus", true)
+                                // 将电话号码放入
+                            this.$router.push('/Registered')
+                        }
                     })
                 }
             })

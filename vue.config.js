@@ -34,17 +34,21 @@ module.exports = {
         }
     },
     devServer: {
-        proxy: {
-            '/api': {
-                // target: 'http://10.99.10.11', //接口
-                target: 'http://www.ftchinese.com',
-                changeOrigin: true, //允许跨域
-                ws: true,
-                pathRewrite: {
-                    '^/api': ''
-                }
-            }
-        }
+        // proxy: {
+        //     '/api': {
+        //         // target: 'http://10.99.10.11', //接口
+        //         target: 'http://www.ftchinese.com',
+        //         changeOrigin: true, //允许跨域
+        //         ws: true,
+        //         pathRewrite: {
+        //             '^/api': ''
+        //         },
+        //         productionSourceMap:false //打包时不会生产.map文件,加快打包速度
+
+        //     }
+        // }
+        proxy: 'http://www.ftchinese.com',
+        port: 8085
     },
     // 第三方插件配置
     pluginOptions: {

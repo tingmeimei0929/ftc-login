@@ -250,8 +250,10 @@ export default {
                         formData.append(key, this.ruleForm[key])
                         console.log(formData.get[key])
                     }
-                    this.axios.post('/api/users/register', formData).then(res => {
-                        this.$message.success('注册成功')
+                    this.axios.post('/users/register', formData).then(res => {
+                        if (res.data.code == 200 && res.data.status == "success") {
+                            this.$message.success('Registration successful')
+                        }
                     })
                 }
             })
