@@ -44,7 +44,7 @@
             }
 
             .content {
-                width: 60%;
+                width: 55%;
                 margin: 0 auto 20px auto;
 
                 .login-type {
@@ -238,8 +238,14 @@
                         background-color: $color-button-bgColor;
                         color: $color-white;
                         font-size: pxToRem(20px);
-
                         &.wxBtn {
+                            display: inline-block;
+                            text-align: center;
+                            box-sizing: border-box;
+                            outline: 0;
+                            transition: .1s;
+                            font-weight: 500;
+                            padding: 8px 20px;
                             border: 1px solid $color-button-wx;
                             background-color: $color-button-wx;
 
@@ -255,6 +261,10 @@
             &.middle {
                 flex-grow: 1;
                 margin: 40px 50px !important;
+                .content {
+                    width: 45%;
+                    margin: 0 auto 20px auto;
+                }
             }
         }
         @include bp-middle{

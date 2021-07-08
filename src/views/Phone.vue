@@ -32,7 +32,7 @@
                 </div>
             </el-form-item> -->
             <el-button class="button" @click="submitForm('ruleForm3')">立即登录</el-button>
-            <el-button class="button wxBtn"><a href="https://www.ftacademy.cn/wxlogin">微信登录</a></el-button>
+            <a class="button wxBtn" href="https://www.ftacademy.cn/wxlogin">微信登录</a>
         </el-form>
     </div>
 </template>

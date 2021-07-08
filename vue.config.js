@@ -15,8 +15,8 @@ module.exports = {
     configureWebpack: {
         output: {
             // 输出重构 打包编译后 文件名称 
-            filename: `js/[name].${TimeStamp}.js`,
-            chunkFilename: `js/[name].${TimeStamp}.js`
+            filename: `javascript/[name].${TimeStamp}.js`,
+            chunkFilename: `javascript/[name].${TimeStamp}.js`
         }
     },
     productionSourceMap: true,
