@@ -101,6 +101,10 @@
                                 border: none;
                                 border-left: 1px solid $color-input-border !important;
                             }
+                            .smsBtn.disabled-style {
+                                background-color: #EEEEEE;
+                                color: #CCCCCC;
+                            }
                             .el-button{
                                 padding: 14px 20px !important;
                             }

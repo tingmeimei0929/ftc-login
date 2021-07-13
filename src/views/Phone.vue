@@ -8,29 +8,16 @@
                     class="phone" v-model="ruleForm3.mobile_phone_no">
                 </el-input>
             </el-form-item>
-            <el-form-item class="smsItem last">
+            <el-form-item class="smsItem last" prop="captcha">
                 <el-input
                     oninput="value=value.replace(/[^\d]/g, '')"
                     maxlength="6"
                     placeholder="输入6位短信验证码"
                     name="smsCode"
-                    class="smsCode" v-model="verify_code" >
+                    class="smsCode" v-model="ruleForm3.captcha" >
                 </el-input>
-                <el-button class="smsBtn" type="button" @click="sendCode" :disabled="disabled" v-if="disabled==false" >
-                    发送验证码
-                </el-button>
-                <el-button class="smsBtn" type="button" @click="sendCode" :disabled="disabled" v-if="disabled==true" >
-                    {{ btntxt }}
-                </el-button>
-                <div class="el-form-item__error">{{ message }}</div>
+                <el-button @click="sendCode()" class="smsBtn" :class="{'disabled-style':getCodeBtnDisable}" :disabled="getCodeBtnDisable">{{btntxt}}</el-button>
             </el-form-item>
-            <!-- <el-form-item class="smsItem remember">
-                <div  class="sidentify"></div>
-                <div class="manner">
-                    <router-link to="/ForgetPsd">忘记密码</router-link>
-                    <router-link to="/Registered">立即注册</router-link>
-                </div>
-            </el-form-item> -->
             <el-button class="button" @click="submitForm('ruleForm3')">立即登录</el-button>
             <a class="button wxBtn" href="https://www.ftacademy.cn/wxlogin">微信登录</a>
         </el-form>
@@ -54,72 +41,80 @@ export default {
             }
         }
         return {
-            disabled: false,
-            time: 0,
-            btntxt: '重新发送',
-            verify_code: '',
-            message: '',
             ruleForm3: {
-                mobile_phone_no: ''
+                mobile_phone_no: '',
+                captcha: ''
             },
             rules3: {
                 mobile_phone_no: [
                     { required: true, message: "请输入手机号码", trigger: 'blur' },
                     { validator: checkMobile, trigger: 'blur'}
+                ],
+                captcha: [
+                    {required: true,message: "请输入短信验证码",trigger: "blur"}
                 ]
             },
-            content: '获取验证码',
-            flag: true,
-            totalTime: 60,
-            canclick: true
+            btntxt: '获取验证码',
+            waitTime: 61
+        }
+    },
+    computed: {
+        phoneNumberStyle () {
+            let reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
+            if (!reg.test(this.ruleForm3.mobile_phone_no)) {
+                return false
+            }
+            return true
+        },
+        // 用于获取验证码按钮是否可点击
+        getCodeBtnDisable: {
+            get () {
+                if(this.waitTime == 61) {
+                    if(this.ruleForm3.mobile_phone_no) {
+                        return false
+                    }
+                    return true
+                }
+                return true
+            },
+            set() {}
         }
     },
     methods: {
         // 手机验证发送验证码
         sendCode() {
-            if(this.ruleForm3.mobile_phone_no == '') {
-                this.$message({
-                    message: '手机号不能为空',
-                    center: true
-                })
-                return
-            }
-            const reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
-            if (reg.test(this.ruleForm3.mobile_phone_no)) {
-                this.axios.post('/users/login/captcha', {
-                    // tpl_id: '',
-                    // key: '',
-                    mobile_phone_no: this.ruleForm3.mobile_phone_no
-                }).then(res => {
+            if(this.phoneNumberStyle) {
+                let params = {}
+                params.mobile_phone_no = this.ruleForm3.mobile_phone_no
+                this.axios.post('/users/login/captcha',params).then(res => {
                     if (res.data.code == 200 && res.data.status == "success"){
                         this.$message("Sent")
-                        this.time = 60
-                        this.disabled = true
-                        this.timer()
                     }
                 })
-            }
-        },
-        // 60秒倒计时
-        timer(){
-            if (this.time > 0) {
-                this.time--
-                this.btntxt = this.time + "s后重新发送"
-                setTimeout(this.timer, 1000)
-            } else {
-                this.time = 0
-                this.btntxt = "发送验证码"
-                this.disabled = false
+                let that = this
+                that.waitTime--
+                that.getCodeBtnDisable = true
+                this.btntxt = `${this.waitTime}s后重新获取`
+                let timer = setInterval(() => {
+                    if(that.waitTime > 1){
+                        that.waitTime--
+                        that.btntxt = `${that.waitTime}s后重新获取`
+                    }else {
+                        clearInterval(timer)
+                        that.btntxt = '获取验证码'
+                        that.getCodeBtnDisable = false
+                        that.waitTime = 61
+                    }
+                }, 1000)
             }
         },
         // <!--提交登录-->
         submitForm (formName) {
             this.$refs[formName].validate(valid => {
-                const codeReg = /^\d{6}$/
-                if (valid && codeReg.test(this.verify_code)) {
+                if (valid) {
                     this.axios.post('/users/login', {
                         mobile_phone_no: this.ruleForm3.mobile_phone_no,
-                        verify_code: this.verify_code
+                        captcha: this.ruleForm3.captcha
                     },{
                         headers: {
                             "Access-Control-Allow-Origin": "*",
@@ -142,8 +137,6 @@ export default {
                             sessionStorage.setItem("phoneLoginStatus", false)
                         }
                     })
-                } else {
-                    this.message = '请输入短信验证码'
                 }
             })
         }
