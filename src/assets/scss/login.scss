@@ -1,14 +1,13 @@
 @import './mixin.scss';
 @import './palette.scss';
 @import './common.scss';
-
 .main {
     width: 100%;
     height: 100vh;
 
     .container {
         &.middle {
-            margin: 40px 100px;
+            margin: 40px 0;
             text-align: center;
             background-color: $color-white;
             display: flex;
@@ -17,7 +16,7 @@
             min-height: 500px;
 
             .title {
-                margin: 50px auto 40px auto;
+                margin: 50px auto;
                 font-size: pxToRem(25px);
                 display: block;
 
@@ -44,7 +43,7 @@
             }
 
             .content {
-                width: 55%;
+                width: 60%;
                 margin: 0 auto 20px auto;
 
                 .login-type {
@@ -261,26 +260,14 @@
                 }
             }
         }
-        @include bp-large{
-            &.middle {
-                flex-grow: 1;
-                margin: 40px 50px !important;
-                .content {
-                    width: 45%;
-                    margin: 0 auto 20px auto;
-                }
-            }
-        }
         @include bp-middle{
             &.middle {
                 flex-grow: 1;
-                margin: 20px 30px !important;
             }
         }
         @include bp-small {
             &.middle {
                 flex-grow: 1;
-                margin: 20px 10px !important;
 
                 .content {
                     width: 90%;
@@ -316,7 +303,7 @@
         @include bp-xs {
             &.middle {
                 flex-grow: 1;
-                margin: 20px 5px !important;
+                margin: 20px 0 !important;
                 .title {
                     margin: 20px auto;
                     font-size: pxToRem(20px) !important;
@@ -364,6 +351,23 @@
                             width: 100%;
                         }
                     }
+                }
+            }
+        }
+    }
+}
+@include bp-large{
+    .main{
+        width: 999px !important;
+        margin: 0 auto;
+
+        .container{
+            &.middle {
+                flex-grow: 1;
+                min-height: 600px;
+
+                .title {
+                    margin: 80px auto 40px auto !important;
                 }
             }
         }
